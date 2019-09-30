@@ -14,5 +14,6 @@
     - Dev et Test unitaire : Solofo
     - Presentation et Demo : Ibrahima
 
-  + Date rendu des planifications : le 5 Octobre avant 23h sur le repository github
-  + Date de validation, intégration et envois des planifications : le 6 Octobre  
+
++ Date rendu des planifications : le 5 Octobre avant 23h sur le repository github
++ Date de validation, intégration et envois des planifications : le 6 Octobre  

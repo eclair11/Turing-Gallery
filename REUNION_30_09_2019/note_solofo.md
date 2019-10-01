@@ -2,11 +2,13 @@
 
 + _Activité_ : planification des tâches pour la planification
 + *Planification*
+
   _SEMESTRE 1_
     - Doc Conception : Elias
     - Doc Specification : Ibrahima
     - Doc Test : Solofo
     - Doc Test Integration : Solofo
+    - Doc manuel utilisateur : Elias
 
   _SEMESTRE 2_
     - Formation : Solofo

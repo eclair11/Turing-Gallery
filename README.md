@@ -1,7 +1,20 @@
-## Liens utiles
+## Installation et configuration de MySQL
 
-Infos sur comment estimer les tâches [ici](https://www.manager-go.com/gestion-de-projet/dossiers-methodes/estimation-des-charges)
+Pour installer et configurer MySQL en local sous Linux : [Cliquez ici](https://freemedforms.com/fr/manuals/freemedforms/install/server_mysql)
 
-Infos sur la rédaction d'un compte rendu [ici](https://www.manager-go.com/gestion-de-projet/rapport-reunion.htm?fbclid=IwAR0JOM1ce5Bz0kLDWhN6LtnuO9A0HC_rz_Juwq6MdKTO1pAdPvcV00ByYAc)
+Les étapes pour installer MySQL en local sous Windows :
 
-Drive du document de la spécification des exigences : [ici](https://docs.google.com/document/d/1PDHkTEr5lOKongF0Lfv-RBMw9XyyonaL/edit)
+* Télécharger sur [Cliquez ici](https://dev.mysql.com/downloads/installer/)
+* Installer sous le type Developer Default
+* Mettre root comme mot de passe
+* Garder les autres valeurs par défaut
+
+Les étapes pour créer la base de données "turgaldb" :
+
+* Vérifier en utilisant MySQL Notifier que le serveur MySQL80 tourne
+* Lancer le terminal mysqlsh.exe qui se trouve dans le dossier "MySQL Shell 8.0\bin"
+* Taper la commande \sql
+* Taper la commande \connect root@localhost
+* Taper le mot de passe de root
+* Taper la commande create database turgaldb;
+* Taper la commande show databases; pour vérifier la création de la base de données

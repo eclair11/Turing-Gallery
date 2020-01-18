@@ -1,0 +1,32 @@
+h2{
+    color: #008ae6;
+}
+
+#preview {
+    display: flex;
+    flex: 200px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+article {
+    width: 200px;
+    margin-top: 10px;
+}
+
+mdb-card {
+    height: 175px;
+}
+
+.valid-icon {
+    color: #00C851;
+}
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+}

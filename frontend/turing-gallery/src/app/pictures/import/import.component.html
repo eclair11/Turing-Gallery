@@ -1,0 +1,36 @@
+<h2>IMPORTER LES IMAGES</h2>
+
+<div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+    <input #file type="file" accept='image/*' (change)="preview(file.files)" multiple>
+</div>
+
+<section id="preview">
+    <article *ngFor="let imgURL of imgURLs">
+        <!--Card-->
+        <mdb-card>
+            <!--Card image-->
+            <div class="view view-cascade overlay waves-light" mdbWavesEffect>
+                <mdb-card-img [src]="imgURL"></mdb-card-img>
+                <a>
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+            <!--/Card image-->
+
+            <mdb-card-body class="text-center">
+                <fa class="valid-icon" name="check-circle" size="2x"></fa>
+            </mdb-card-body>
+            <!--/.Card content-->
+        </mdb-card>
+        <!--/.Card-->
+    </article>
+
+    <article *ngIf="imgURLs.length == 0">
+        <fa name="file-image-o"></fa>
+        Aucun fichier importé
+    </article>
+</section>
+
+<footer>
+    <button mdbBtn color="default" size="lg" (click)="startUpload()">GENERER <fa name="cog" size="2x"></fa></button>
+</footer>

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { HomeComponent } from './home/home.component';
+import { ImportComponent } from './pictures/import/import.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'connexion',
     component: ConnexionComponent
+  },
+  {
+    path: 'pictures/import',
+    component: ImportComponent,
   }
 ];
 

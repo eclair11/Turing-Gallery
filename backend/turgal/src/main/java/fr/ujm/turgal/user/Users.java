@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String userName;
@@ -70,7 +70,13 @@ public class Users {
         this.roles.addAll(roles.stream().map(UserRole::valueOf).collect(Collectors.toList()));
     }
 
-    public Long getId() {
+    public Users(String userName, String password, String displayName) {
+        this.userName = userName;
+        this.displayName = displayName;
+        this.password = password;
+    }
+
+	public Long getId() {
         return id;
     }
 
@@ -125,5 +131,7 @@ public class Users {
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
     }
+
+
 
 }

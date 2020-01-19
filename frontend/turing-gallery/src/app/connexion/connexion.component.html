@@ -1,0 +1,48 @@
+<!-- main app container -->
+<div>
+  <img src=".\assets\img\a.png" class="rounded mx-auto d-block" width="200" height="200" alt="Responsive image">
+
+
+</div>
+<div class="card m-3">
+  <h5 class="card-header" style="text-align: center;">Interface de connexion</h5>
+  <div class="card-body">
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col-5">
+          <label>Email</label>
+          <input type="text" formControlName="email" class="form-control" [(ngModel)]='email'
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email est obligatoire</div>
+            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-5">
+          <label>Mot de passe</label>
+          <input type="password" formControlName="password" class="form-control"  [(ngModel)]='password'
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">Le mot de passe doit être au moins de 6 caractères</div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="text-center">
+        <button class="btn btn-primary mr-1" (click)="authenticate()">connexion</button>
+      </div>
+
+      <div class="text-right">
+        <button class="btn alert-dark">pas encre inscri ?</button>
+      </div>
+    </form>
+  </div>
+</div>

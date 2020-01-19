@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+
+import fr.ujm.turgal.user.Users;
 
 /**
  * Picture
@@ -18,8 +21,6 @@ public class Picture {
 
     private String title;
 
-    private String legend;
-
     private int size;
 
     private int height;
@@ -29,16 +30,26 @@ public class Picture {
     @Lob
     private byte[] image;
 
+    @ManyToOne
+    private Users user;
+
     public Picture() {
     }
 
-    public Picture(String title, String legend, int size, int height, int width, byte[] image) {
+    public Picture(String title, int size, int height, int width, byte[] image) {
         this.title = title;
-        this.legend = legend;
         this.size = size;
         this.height = height;
         this.width = width;
         this.image = image;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -47,14 +58,6 @@ public class Picture {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getLegend() {
-        return legend;
-    }
-
-    public void setLegend(String legend) {
-        this.legend = legend;
     }
 
     public int getSize() {

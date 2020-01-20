@@ -1,9 +1,8 @@
-/**
- * 
- */
+
 import { Component, OnInit } from '@angular/core';
 import { Picture } from '../picture';
 import { PictureService } from '../picture.service';
+
 
 @Component({
   selector: 'app-import',
@@ -12,35 +11,31 @@ import { PictureService } from '../picture.service';
 })
 export class ImportComponent implements OnInit {
 
-  /**
-   * all url of pictures that have been uploaded
-   */
-  pictures : Picture[] = [];
-  /**
-   * delete picture indicator
-   */
-  isShownDeletes = {};
-  shownDeleteIndex = -1;
-  deletedPicture = null;
-
+  /** all pictures that have been added */
+  pictures: Picture[] = [];
   /** number of valid picture */
   validPictureCount = 0;
   /** number of invalid picture */
   invalidPictureCount = 0;
-  
-  /** uploading indicator */
-  isUploading = false;
+  /** delete picture indicator */
+  isShownDeletes = {};
+  shownDeleteIndex = -1;
+  deletedPicture = null;
 
-  constructor(private service : PictureService) { }
+  constructor(private service: PictureService) { }
 
   ngOnInit() {
   }
 
-  startUpload = async () => {
-    console.log("uploading");
-    this.isUploading = true;
-    await this.service.post(this.pictures);
-    this.isUploading = false;
+  startUpload = () => {
+    this.service.post(this.pictures);
+    this.reinitPicture();
+  }
+
+  reinitPicture = () => {
+    this.pictures = [];
+    this.validPictureCount = 0;
+    this.invalidPictureCount = 0;
   }
 
   onClickDeletePicture = (picture: Picture): void => {
@@ -95,7 +90,7 @@ export class ImportComponent implements OnInit {
           image.src = reader.result as string;
           image.onload = () => {
             const picture = new Picture(
-              reader.result as string, 
+              reader.result as string,
               image.height,
               image.width,
               file
@@ -106,8 +101,7 @@ export class ImportComponent implements OnInit {
             } else {
               this.invalidPictureCount++;
             }
-          }
-          
+          };
         };
       }
     }

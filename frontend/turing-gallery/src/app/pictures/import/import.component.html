@@ -61,15 +61,20 @@
         <!--/.Card-->
     </article>
 
-    <article *ngIf="pictures.length == 0">
+    <article *ngIf="pictures.length == 0 && !service.isUploading && service.isUploadOk == null">
         <fa name="file-image-o"></fa>
-        Aucun fichier importé
+        Aucun fichier ajouté
     </article>
 </section>
 
-<footer id="btn-container" *ngIf="pictures.length > 0">
-    <mdb-spinner spinnerType="small" spinnerColor="blue" *ngIf="isUploading"></mdb-spinner>
-    <button mdbBtn color="default" block="true" *ngIf="!isUploading" (click)="startUpload()">
+<footer id="btn-container">
+    <div [class]="(service.isUploadOk) ? 'alert alert-success' : 'alert alert-danger'" role="alert" *ngIf="service.uploadMessage">
+        {{ service.uploadMessage }}
+    </div>
+    <div  *ngIf="service.isUploading" class="text-info">
+        <fa name="spinner" animation="spin" size="3x"></fa> <small> importation en cours...</small>
+    </div>
+    <button mdbBtn color="default" block="true" *ngIf="!service.isUploading && pictures.length > 0" (click)="startUpload()">
         <fa name="cloud-upload" size="2x"></fa> IMPORTER 
     </button>
 </footer>

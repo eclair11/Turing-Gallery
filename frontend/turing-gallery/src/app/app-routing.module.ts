@@ -5,6 +5,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { HomeComponent } from './home/home.component';
 import { ImportComponent } from './pictures/import/import.component';
+import { DisplayComponent } from './pictures/display/display.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'pictures/import',
     component: ImportComponent,
+  },
+  {
+    path: 'pictures/display',
+    component: DisplayComponent
   }
 ];
 

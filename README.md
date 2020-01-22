@@ -1,4 +1,5 @@
 # PREREQUIS BACKEND
+
 ## Installation et configuration de MySQL
 
 Pour installer et configurer MySQL en local sous Linux : [Cliquez ici](https://freemedforms.com/fr/manuals/freemedforms/install/server_mysql)
@@ -20,23 +21,32 @@ Les étapes pour créer la base de données "turgaldb" :
 * Taper la commande create database turgaldb;
 * Taper la commande show databases; pour vérifier la création de la base de données
 
+## Configuration de MySQL pour autoriser la persistance de plusieurs fichiers à la fois
+
+* Ouvrir MySQL Notifier
+* Ouvrir SQL Editor
+* Se connecter à son compte
+* Ouvrir l'onglet Server
+* Choisir Option Files
+* Taper "packet" dans la barre de recherche "Locate option" en haut à droite puis cliquer sur "Find"
+* Changer la valeur de max_allowed_packet à 256M
+
 # PREREQUIS FRONTEND
 
 ## Installation Node.js et npm
 
 Angular a besoin de Node.js version 10.9.0 ou plus.
 
--   pour vérifier la version, executer `node -v` dans un terminal/console windows.
-
- -   Pour installer Node.js, voir le site nodejs.org.
-
- -  Pour vérifier la version de npm, executer `npm -v`
- - npm est installer par defaut avec Node.js
+* Pour vérifier la version, executer `node -v` dans un terminal/console windows.
+* Pour installer Node.js, voir le site nodejs.org.
+* Pour vérifier la version de npm, executer `npm -v`
+* npm est installer par defaut avec Node.js
 
 ## Installation Angular CLI
 
-- executer `npm install -g @angular/cli` dans un terminal/consonle windows.
+* Exécuter `npm install -g @angular/cli` dans un terminal/console windows.
 
 ## Lancer l'application front
-- aller dans le repértoire frontend/turing-gallery/
-- executer la commande `ng serve --open`
+
+* Aller dans le repértoire frontend/turing-gallery/
+* Exécuter la commande `ng serve --open`

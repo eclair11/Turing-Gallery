@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Picture } from './picture';
-
+import { Gallery } from './gallery';
 
 const SECOND = 1000;
 const MESSAGE_UPLOAD_OK = 'Les images ont été importé avec succés';
@@ -18,7 +19,7 @@ export class PictureService {
   isUploadOk = null;
   uploadMessage = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private sanitizer : DomSanitizer) { }
 
   /** send post request with pictures as multipart-form-data */
   post = (pictures: Picture[]): void => {
@@ -55,10 +56,24 @@ export class PictureService {
   /**
    * send a request to get pictures as a json object
    */
-  get = (page: string) => {
+  get = (gallery: Gallery[], page: string): void => {
     this.http.get('http://localhost:9090/api/v1/pictures/' + page).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
+      (data) => {
+        let dataSize = Object.keys(data).length - 1;
+        for(let i = 0; i < dataSize; i++) {
+          const pic = new Gallery();
+          pic.title = data[i].title;
+          pic.height = data[i].height;
+          pic.width = data[i].width;
+          pic.size = data[i].size;
+          let url = URL.createObjectURL(new Blob([data[i].image], { type: "image/jpg" }));
+          pic.image = this.sanitizer.bypassSecurityTrustUrl(url);
+          gallery.push(pic);
+        }
+        //page = data[dataSize];
+      },
+      (err) => {
+        console.log(err);
+      });
   }
 }

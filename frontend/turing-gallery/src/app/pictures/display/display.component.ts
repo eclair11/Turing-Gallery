@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Picture } from '../picture';
+import { Gallery } from '../gallery';
 import { PictureService } from '../picture.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { PictureService } from '../picture.service';
 export class DisplayComponent implements OnInit {
 
   page: string;
+  gallery: Gallery[] = [];
 
   constructor(private service: PictureService) { }
 
@@ -18,9 +19,10 @@ export class DisplayComponent implements OnInit {
     this.getPictures();
   }
 
-  getPictures = async () => {
+  getPictures = () => {
     this.page = "1";
-    this.service.get(this.page);
+    this.service.get(this.gallery, this.page);
+    console.log(this.gallery);
   }
 
 }

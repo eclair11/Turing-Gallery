@@ -42,24 +42,19 @@ public class PictureRestController {
     @PersistenceContext
     EntityManager entityManager;
 
-    @GetMapping(value = "/pictures/{id}/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Object> getPictures(@PathVariable Long id, @PathVariable int page) {
-
+    @GetMapping(value = "/pictures/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Object> getPictures(@PathVariable int page) {
         List<Object> result = new ArrayList<>();
         int pageNumber = page;
         int pageSize = PAGE_SIZE;
-
-        Query query = entityManager.createQuery("From Picture p Where p.user.id LIKE " + id);
+        Query query = entityManager.createQuery("From Picture p");
         query.setFirstResult((pageNumber - 1) * pageSize);
         query.setMaxResults(pageSize);
         result = query.getResultList();
-
-        Query queryTotal = entityManager.createQuery("Select count(p.id) From Picture p Where p.user.id LIKE " + id);
+        Query queryTotal = entityManager.createQuery("Select count(p.id) From Picture p");
         long countResult = (long) queryTotal.getSingleResult();
         result.add(countResult);
-
         return result;
-
     }
 
     @PostMapping(value = "/import", consumes = { "multipart/form-data" })
@@ -70,27 +65,23 @@ public class PictureRestController {
         int i = 0;
         while (i < sizes.length) {
             Picture picture = new Picture();
+            MultipartFile file = pictures[i];
             picture.setWidth(Integer.valueOf(widths[i]));
             picture.setHeight(Integer.valueOf(heights[i]));
             picture.setSize(Integer.valueOf(sizes[i]));
-            MultiFilesUpload(pictures, picture, i);
+            picture.setTitle(file.getOriginalFilename());
+            try {
+                picture.setImage(file.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             picRepo.save(picture);
             i++;
         }
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
-    private void MultiFilesUpload(MultipartFile[] pictures, Picture picture, int i) {
-        MultipartFile file = pictures[i];
-        picture.setTitle(file.getOriginalFilename());
-        try {
-            picture.setImage(file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @PutMapping(value = "/delete/{id}/{pics}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/delete", consumes = { "multipart/form-data" })
     public void deletePictures(@PathVariable Long id, @PathVariable Object pics) {
 
     }

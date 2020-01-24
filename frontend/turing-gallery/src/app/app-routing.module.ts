@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core/';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ConnexionComponent } from './connexion/connexion.component';
-import { InscriptionComponent } from './inscription/inscription.component';
 import { HomeComponent } from './home/home.component';
 import { ImportComponent } from './pictures/import/import.component';
 
@@ -10,16 +9,12 @@ import { ImportComponent } from './pictures/import/import.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/connexion',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
     path: 'home',
     component: HomeComponent
-  },
-  {
-    path: 'inscription',
-    component: InscriptionComponent
   },
   {
     path: 'connexion',

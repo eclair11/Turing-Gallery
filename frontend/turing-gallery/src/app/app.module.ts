@@ -9,7 +9,6 @@ import { ImportComponent } from './pictures/import/import.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InscriptionComponent } from './inscription/inscription.component';
 import { HomeComponent } from './home/home.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 
@@ -18,7 +17,6 @@ import { ConnexionComponent } from './connexion/connexion.component';
     AppComponent,
     TestApiComponent,
     ImportComponent,
-    InscriptionComponent,
     HomeComponent,
     ConnexionComponent
   ],

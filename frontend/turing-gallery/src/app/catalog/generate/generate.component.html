@@ -3,8 +3,8 @@
         <div class="container text-center">
             <div class="row justify-content-center">
                 <div class="col-md-7">
-                    <h1 class="font-weight-light mt-4 text-white">ETAPE {{ step }} : CHOIX DU MODELE DE CATALOGUE</h1>
-                    <p class="lead text-white-50">Seléctionner un modèle parmis ceux qui sont proposés</p>
+                    <h1 class="font-weight-light mt-4 text-white">ETAPE {{ step }} : {{STEPS_TITLE[step-1]}}</h1>
+                    <p class="lead text-white-50">{{ STEPS_SUBTITLE[step-1] }}</p>
                 </div>
             </div>
 
@@ -14,19 +14,27 @@
             <!-- COMPONENT : CHOIX IMAGES -->
             <app-pictures *ngIf="step === 2"></app-pictures>
 
+            <!-- COMPONENT : PERSONNALISATION -->
+            <app-customize *ngIf="step === 3"></app-customize>
+
             <nav class="row">
-                <div class="col-md-6">
+                <div *ngIf="step === 1" class="col-md-6">
                     <a href="/home" type="button" class="btn btn-danger">
                         <fa name="times"></fa> Annuler
                     </a>
                 </div>
-                <div *ngIf="step < 2" class="col-md-6">
-                    <button type="button" class="btn btn-lg btn-info" (click)="onClickNextStep();">Etape suivante <fa
-                            name="arrow-right" size="2x"></fa></button>
+                <div *ngIf="step > 1" (click)="onClickPreviousStep();" class="col-md-6">
+                    <button type="button" class="btn btn-danger">
+                        <fa name="arrow-left"></fa> Etape précedente
+                    </button>
                 </div>
-                <div *ngIf="step === 2" class="col-md-6">
-                    <button type="button" class="btn btn-lg btn-info">Générer le catalogue <fa
-                            name="cogs" size="2x"></fa></button>
+                <div *ngIf="step < STEPS_TITLE.length" class="col-md-6">
+                    <button type="button" class="btn btn-info" (click)="onClickNextStep();">Etape suivante <fa
+                            name="arrow-right"></fa></button>
+                </div>
+                <div *ngIf="step === STEPS_TITLE.length" class="col-md-6">
+                    <button type="button" class="btn btn-warning">Générer le catalogue <fa
+                            name="cogs"></fa></button>
                 </div>
             </nav>
         </div>

@@ -16,6 +16,11 @@ h2{
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+    position: relative;
+    min-height: 270px;
+    margin-top: 30px;
 }
 
 article {

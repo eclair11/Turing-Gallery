@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Gallery } from '../gallery';
+import { Picture } from '../picture';
 import { PictureService } from '../picture.service';
 
 @Component({
@@ -10,19 +10,22 @@ import { PictureService } from '../picture.service';
 
 export class DisplayComponent implements OnInit {
 
-  page: string;
-  gallery: Gallery[] = [];
+  pictures: Picture[] = [];
+  total: number[] = [];
+  actualpage: number;
 
   constructor(private service: PictureService) { }
 
   ngOnInit() {
-    this.getPictures();
+    this.actualpage = 1;
+    this.getPictures(1);
   }
 
-  getPictures = () => {
-    this.page = "1";
-    this.service.get(this.gallery, this.page);
-    console.log(this.gallery);
+  getPictures = (page: number): void => {
+    this.actualpage = page;
+    this.pictures = [];
+    this.total = [];
+    this.service.get(this.pictures, this.total, page);
   }
 
 }

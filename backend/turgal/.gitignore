@@ -33,3 +33,6 @@ build/
 ### SonarQube ###
 .scannerwork/
 sonar-project.properties
+
+### Temp Picture Folder ###
+src/main/resources/static/images/

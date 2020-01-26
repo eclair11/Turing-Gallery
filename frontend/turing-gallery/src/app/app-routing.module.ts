@@ -5,6 +5,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { HomeComponent } from './home/home.component';
 import { ImportComponent } from './pictures/import/import.component';
 import { DisplayComponent } from './pictures/display/display.component';
+import { GenerateComponent } from './catalog/generate/generate.component';
 
 
 const routes: Routes = [
@@ -22,8 +23,8 @@ const routes: Routes = [
     component: ConnexionComponent
   },
   {
-    path: 'pictures/import',
-    component: ImportComponent,
+    path: 'catalog/generate',
+    component: GenerateComponent
   },
   {
     path: 'pictures/display',

@@ -12,6 +12,11 @@ import { HomeComponent } from './home/home.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { ImportComponent } from './pictures/import/import.component';
 import { DisplayComponent } from './pictures/display/display.component';
+import { ModelComponent } from './catalog/generate/model/model.component';
+import { PicturesComponent } from './catalog/generate/pictures/pictures.component';
+import { CustomizeComponent } from './catalog/generate/customize/customize.component';
+import { GenerateComponent } from './catalog/generate/generate.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +25,11 @@ import { DisplayComponent } from './pictures/display/display.component';
     ImportComponent,
     HomeComponent,
     ConnexionComponent,
-    DisplayComponent
+    DisplayComponent,
+    ModelComponent,
+    PicturesComponent,
+    CustomizeComponent,
+    GenerateComponent,
   ],
   imports: [
     BrowserModule,

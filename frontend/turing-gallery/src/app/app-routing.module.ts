@@ -27,6 +27,10 @@ const routes: Routes = [
     component: GenerateComponent
   },
   {
+    path: 'pictures/import',
+    component: ImportComponent
+  },
+  {
     path: 'pictures/display',
     component: DisplayComponent
   }

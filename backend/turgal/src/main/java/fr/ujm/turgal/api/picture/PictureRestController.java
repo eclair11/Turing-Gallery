@@ -10,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,8 @@ public class PictureRestController {
     private static final String IMAGES_PATH = "http://localhost:9090/images/";
     private static final int PAGE_SIZE = 20;
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     PictureRepository picRepo;
 
@@ -48,7 +52,7 @@ public class PictureRestController {
 
     @GetMapping(value = "/pictures/{page}", produces = { "application/json" })
     public ResponseEntity<MultiValueMap<String, Object>> getPictures(@PathVariable int page) {
-        MultiValueMap<String, Object> pictures = new LinkedMultiValueMap<String, Object>();
+        MultiValueMap<String, Object> pictures = new LinkedMultiValueMap<>();
         File uploadRootDir = new File(UPLOAD_PATH);
         if (!uploadRootDir.exists()) {
             uploadRootDir.mkdirs();
@@ -62,14 +66,12 @@ public class PictureRestController {
             pictures.add("height", p.getHeight());
             pictures.add("width", p.getWidth());
             pictures.add("size", p.getSize());
-            try {
-                File file = new File(uploadRootDir.getAbsolutePath() + File.separator + p.getTitle());
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
+            File file = new File(uploadRootDir.getAbsolutePath() + File.separator + p.getTitle());
+            try(BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file))) {
                 stream.write(p.getImage());
-                stream.close();
                 pictures.add("image", IMAGES_PATH + p.getTitle());
             } catch (Exception e) {
-                System.err.println(e);
+                logger.error(e.getMessage());
             }
         }
         TypedQuery<Long> queryTotal = entityManager.createQuery("Select count(p.id) From Picture p", Long.class);
@@ -94,7 +96,7 @@ public class PictureRestController {
             try {
                 picture.setImage(file.getBytes());
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
             picRepo.save(picture);
             i++;
@@ -104,7 +106,7 @@ public class PictureRestController {
 
     @PutMapping(value = "/delete", consumes = { "multipart/form-data" })
     public void deletePictures(@PathVariable Long id, @PathVariable Object pics) {
-
+        /* UNDER CONSTRUCTION */
     }
 
 }

@@ -336,7 +336,6 @@ span {
   position: absolute;
   right: 8px;
   margin-top: 1px;
-  font-family: FontAwesome;
   font-style: normal;
   font-weight: normal;
 }
@@ -625,7 +624,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
 
 #about-us .about-content h2 {
   color: #252525;
-  font-family: "roboto";
   font-size: 39px;
   font-weight: 100;
   letter-spacing: 2px;
@@ -756,16 +754,16 @@ body.mobile-nav-active #mobile-nav-toggle i {
   position: absolute;
   width: 120px;
   height: 120px;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation: pulsate1 2s;
   animation: pulsate1 2s;
-  -webkit-animation-direction: forwards;
+  -webkit-animation: pulsate1 2s;
+  animation-delay: 0s;
+  -webkit-animation-delay: 0s;
   animation-direction: forwards;
-  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: forwards;
   animation-iteration-count: infinite;
-  -webkit-animation-timing-function: steps;
+  -webkit-animation-iteration-count: infinite;
   animation-timing-function: steps;
+  -webkit-animation-timing-function: steps;
   opacity: 1;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.5);
@@ -862,7 +860,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
   background: #fff none repeat scroll 0 0;
   bottom: 0;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(0, 0, 0, 0.19);
-  bottom: -147px;
   padding: 20px 0;
   position: absolute;
   width: 100%;
@@ -918,7 +915,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
   color: #71c55d;
   content: "";
   display: inline-block;
-  font: 70px/1 FontAwesome;
   position: absolute;
   right: 43px;
   text-align: left;
@@ -926,7 +922,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
 }
 
 #testimonials .top-top > h2 {
-  font-family: "Roboto" sans-serif;
   font-size: 45px;
   font-weight: 100;
   letter-spacing: 2px;
@@ -950,7 +945,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
   border-radius: 50%;
   margin-right: 13px;
   background: #ddd none repeat scroll 0 0;
-  border-radius: 50%;
   box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   display: block;
@@ -966,7 +960,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
   position: relative;
   bottom: 0;
   left: 0;
-  bottom: 0 !important;
   z-index: 15;
   width: auto;
   padding-left: 0;
@@ -1118,7 +1111,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
 }
 
 #newsletter .form-control {
-  background-color: transparent;
   border: 1px solid #dddddd;
   border-radius: 0;
   color: #888;

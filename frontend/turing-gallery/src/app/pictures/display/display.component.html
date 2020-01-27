@@ -7,7 +7,7 @@
     <div class="row text-center text-lg-left">
         <div *ngFor="let pic of pictures" class="col-lg-3 col-md-4 col-6">
             <a class="mb-4 h-100" [href]="pic.image">
-                <img class="img-fluid img-thumbnail" [src]="pic.image">
+                <img class="img-fluid img-thumbnail" alt="Image" [src]="pic.image">
             </a>
             <div class="text-center">{{ pic.title }}</div>
         </div>

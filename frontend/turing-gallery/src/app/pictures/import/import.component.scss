@@ -6,7 +6,7 @@ h2{
     display: none;
 }
 
-#infos mdb-badge {
+#infos .mdb-badge {
     margin-right: 5px;
 }
 
@@ -43,18 +43,18 @@ article {
     cursor: pointer;
 }
 
-mdb-card {
+.mdb-card {
     height: 175px;
 }
 
-mdb-card-body footer {
+.mdb-card-body footer {
     height: 30px;
     position: absolute;
     bottom: 10px;
     text-align: left;
 }
 
-mdb-card-body footer #infos {
+.mdb-card-body footer #infos {
     height: 20px;
     font-size: 0.7em;
 }

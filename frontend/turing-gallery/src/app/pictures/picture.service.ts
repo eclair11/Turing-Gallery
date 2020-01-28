@@ -37,7 +37,7 @@ export class PictureService {
         formData.append('sizes', picture.size + '');
       }
     }
-    this.http.post('http://localhost:9090/api/v1/import', formData).subscribe(
+    this.http.post('http://localhost:9090/api/v1/pictures', formData).subscribe(
       () => {
         this.isUploadOk = true;
         this.isUploading = false;
@@ -56,7 +56,7 @@ export class PictureService {
   }
 
   /**
-   * send a request to get pictures as json object
+   * send a request to get pictures
    */
   get = (pictures: Picture[], total: number[], page: number): void => {
     this.http.get('http://localhost:9090/api/v1/pictures/' + page).subscribe(
@@ -83,14 +83,14 @@ export class PictureService {
   }
 
   /**
-   * send a request to delete a picture
+   * send a request to remove pictures
    */
-  delete = (pictureId: number, actualpage: number): void => {
+  remove = (remove: number[]): void => {
     const formData = new FormData();
-    formData.append("pictureId", pictureId + '');
-    this.http.put('http://localhost:9090/api/v1/delete/', formData).subscribe(
-      (res) => {
-        console.log(res);
+    formData.append("pictures", remove + '');
+    this.http.put('http://localhost:9090/api/v1/pictures', formData).subscribe(
+      () => {
+        window.location.reload();
       },
       (err) => {
         console.log(err);

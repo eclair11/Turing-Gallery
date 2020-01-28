@@ -75,11 +75,11 @@ public class PictureRestController {
             }
         }
         TypedQuery<Long> queryTotal = entityManager.createQuery("Select count(p.id) From Picture p", Long.class);
-        pictures.add("total", (queryTotal.getSingleResult() / PAGE_SIZE) + 1);
+        pictures.add("total", (queryTotal.getSingleResult() + PAGE_SIZE - 1) / PAGE_SIZE);
         return ResponseEntity.status(HttpStatus.OK).body(pictures);
     }
 
-    @PostMapping(value = "/import", consumes = { "multipart/form-data" })
+    @PostMapping(value = "/pictures", consumes = { "multipart/form-data" })
     public ResponseEntity<String> importPictures(HttpServletRequest request,
             @RequestParam(name = "pictures") MultipartFile[] pictures) {
         String[] widths = request.getParameterValues("widths");
@@ -104,9 +104,11 @@ public class PictureRestController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
-    @PutMapping(value = "/delete", consumes = { "multipart/form-data" })
-    public ResponseEntity<String> deletePictures(@RequestParam(name = "pictureId") Long id) {
-        picRepo.deleteById(id);
+    @PutMapping(value = "/pictures", consumes = { "multipart/form-data" })
+    public ResponseEntity<String> removePictures(@RequestParam(name = "pictures") Long[] ids) {
+        for (Long id : ids) {
+            picRepo.deleteById(id);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 

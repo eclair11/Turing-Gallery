@@ -67,7 +67,7 @@ public class PictureRestController {
             pictures.add("width", p.getWidth());
             pictures.add("size", p.getSize());
             File file = new File(uploadRootDir.getAbsolutePath() + File.separator + p.getTitle());
-            try(BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file))) {
+            try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file))) {
                 stream.write(p.getImage());
                 pictures.add("image", IMAGES_PATH + p.getTitle());
             } catch (Exception e) {
@@ -105,8 +105,9 @@ public class PictureRestController {
     }
 
     @PutMapping(value = "/delete", consumes = { "multipart/form-data" })
-    public void deletePictures(@PathVariable Long id, @PathVariable Object pics) {
-        /* UNDER CONSTRUCTION */
+    public ResponseEntity<String> deletePictures(@RequestParam(name = "pictureId") Long id) {
+        picRepo.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
 }

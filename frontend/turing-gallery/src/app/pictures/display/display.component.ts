@@ -21,11 +21,19 @@ export class DisplayComponent implements OnInit {
     this.getPictures(1);
   }
 
+  getTotal = (): number => {
+    return this.total[this.total.length - 1];
+  }
+
   getPictures = (page: number): void => {
     this.actualpage = page;
     this.pictures = [];
     this.total = [];
     this.service.get(this.pictures, this.total, page);
+  }
+
+  rmPicture = (pictureId: number): void => {
+    this.service.delete(pictureId, this.actualpage);
   }
 
 }

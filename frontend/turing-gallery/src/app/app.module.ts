@@ -1,42 +1,45 @@
-import { BrowserModule } from '@angular/platform-browser/';
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core/';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TestApiComponent } from './test-api/test-api.component';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { ImportComponent } from './pictures/import/import.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InscriptionComponent } from './inscription/inscription.component';
-import { HomeComponent } from './home/home.component';
-import { ConnexionComponent } from './connexion/connexion.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { InscriptionComponent } from './authentification/inscription/inscription.component';
+import { ConnexionComponent } from './authentification/connexion/connexion.component';
+import { LogoutComponent } from './authentification/logout/logout.component';
+import { EmployeeComponent } from './model/job/employee/employee.component';
+import { AddEmployeeComponent } from './model/job/add-employee/add-employee.component';
+import { UserListComponent } from './model/user/user-list/user-list.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { HttpInterceptorService } from './service/http-interceptor.service';
+import { UserService } from './service/user.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestApiComponent,
-    ImportComponent,
+    FooterComponent,
+    HeaderComponent,
     InscriptionComponent,
-    HomeComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    LogoutComponent,
+    EmployeeComponent,
+    AddEmployeeComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
-    HttpClientJsonpModule,
-    MDBBootstrapModule.forRoot(),
-    AngularFontAwesomeModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    ReactiveFormsModule
+    FormsModule
   ],
-  schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [],
+  providers: [
+    UserService,
+    {  
+      provide:HTTP_INTERCEPTORS, useClass:HttpInterceptorService, multi:true 
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

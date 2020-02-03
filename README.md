@@ -1,42 +1,39 @@
-# PREREQUIS BACKEND
-## Installation et configuration de MySQL
+# MINI PROJET SECURITE
 
-Pour installer et configurer MySQL en local sous Linux : [Cliquez ici](https://freemedforms.com/fr/manuals/freemedforms/install/server_mysql)
+## Installation
 
-Les étapes pour installer MySQL en local sous Windows :
+### Back-end
 
-* Télécharger sur [Cliquez ici](https://dev.mysql.com/downloads/installer/)
-* Installer sous le type Developer Default
-* Mettre root comme mot de passe
-* Garder les autres valeurs par défaut
+* Lancer sur votre poste :
+  * Le serveur
+  * La base de données (depuis MySQL80 ou PHPMyAdmin)
+* Ouvrir le contenu du dossier 'backend' à partir de Spring Boot 
+* Configurer son fichier 'application.properties' :
+  * Le port pour la connexion à la BDD :
+    * 3303 ou 3307
+  * Le port pour la connexion au backend :
+    * 8080 ou 9090
+  * Le login de la BDD :
+    * 'root' généralement
+  * Le mot de passe de la BDD :
+    * 'root' ou ''
+* Lancer l'application
+* Passer au lancement du frontend
 
-Les étapes pour créer la base de données "turgaldb" :
+### Front-end
 
-* Vérifier en utilisant MySQL Notifier que le serveur MySQL80 tourne
-* Lancer le terminal mysqlsh.exe qui se trouve dans le dossier "MySQL Shell 8.0\bin"
-* Taper la commande \sql
-* Taper la commande \connect root@localhost
-* Taper le mot de passe de root
-* Taper la commande create database turgaldb;
-* Taper la commande show databases; pour vérifier la création de la base de données
+* Au préalable, lancez le backend depuis Spring Boot
+* Se rendre à la racine du contenu du dossier 'frontend'
+* Si vous disposez des modules 'node_modules' :
+  * Tapper dans le terminal 'ng serve --open'
+* Sinon :
+  * Tapper dans le terminal 'npm install'
 
-# PREREQUIS FRONTEND
+#### Nota Bene Front-end
 
-## Installation Node.js et npm
+* Il sera peut-être nécessaire selon votre version d'Angular d'installer :
+  * rxjs et/ou Observable :  
+    * Tapper dans le terminal 'npm install --save rxjs-compat'
+* S'il manquait d'autres modules, procéder à l'installation de ceux-ci
 
-Angular a besoin de Node.js version 10.9.0 ou plus.
 
--   pour vérifier la version, executer `node -v` dans un terminal/console windows.
-
- -   Pour installer Node.js, voir le site nodejs.org.
-
- -  Pour vérifier la version de npm, executer `npm -v`
- - npm est installer par defaut avec Node.js
-
-## Installation Angular CLI
-
-- executer `npm install -g @angular/cli` dans un terminal/consonle windows.
-
-## Lancer l'application front
-- aller dans le repértoire frontend/turing-gallery/
-- executer la commande `ng serve --open`

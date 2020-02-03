@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringBootHelloWorldApplication<spring-boot-jwt>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.javainuse.SpringBootHelloWorldApplication",
+            "projectName": "spring-boot-jwt",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringBootHelloWorldApplication<spring-boot-jwt>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "ujm.turgal.SpringBootHelloWorldApplication",
+            "projectName": "spring-boot-jwt",
+            "args": ""
+        }
+    ]
+}

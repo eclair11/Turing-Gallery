@@ -39,10 +39,10 @@ public class PictureRestControllerTests extends AbstractTest {
     public void importPictures() throws Exception {
         String uri = "/api/v1/pictures";
         Random rand = new Random();
-        String[] widths = {};
-        String[] heights = {};
-        String[] sizes = {};
-        MultipartFile[] pictures = {};
+        String[] widths = new String[10];
+        String[] heights = new String[10];
+        String[] sizes = new String[10];
+        MultipartFile[] pictures = new MultipartFile[10];
         for (int i = 0; i < 10; i++) {
             widths[i] = String.valueOf(rand.nextInt(5000));
             heights[i] = String.valueOf(rand.nextInt(5000));
@@ -58,12 +58,9 @@ public class PictureRestControllerTests extends AbstractTest {
     @Test
     public void deletePictures() throws Exception {
         String uri = "/api/v1/pictures";
-        Random rand = new Random();
-        String[] pictures = {};
-        for (int i = 0; i < 10; i++) {
-            pictures[i] = String.valueOf(rand.nextInt(500));
-        }
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri).param("pictures", pictures)).andReturn();
+        String[] pictures = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri).param("pictures", pictures)
+            .contentType(MediaType.MULTIPART_FORM_DATA)).andReturn();
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
     }

@@ -40,9 +40,7 @@ import { GenerateComponent } from './catalog/generate/generate.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    ReactiveFormsModule
+    BrowserAnimationsModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [],

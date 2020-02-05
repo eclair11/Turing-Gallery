@@ -1,18 +1,44 @@
 <div class="container">
 
-    <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Pictures Gallery</h1>
+    <div class="row text-center text-lg-left">
+        <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0 col-11">Pictures Gallery</h1>
+        <a (click)="removePictures()" [hidden]="getTotalRemove()"><i class="fa fa-times red-text fa-4x"></i></a>
+    </div>
 
     <hr class="mt-2 mb-5">
 
     <div class="row text-center text-lg-left">
-
-        <div *ngFor="let pic of gallery" class="col-lg-3 col-md-4 col-6">
-            <a [href]="pic.image" class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" [src]="pic.image">
-                <div>{{ pic.title }}</div>
+        <div id="{{pic.id}}" *ngFor="let pic of pictures" class="col-lg-3 col-md-4 col-6">
+            <a class="mb-4 h-100" [href]="pic.image">
+                <img class="img-fluid img-thumbnail" alt="Image" [src]="pic.image">
             </a>
+            <div class="text-center">
+                <span class="col">{{ pic.title }}</span>
+                <a (click)="setRemove(pic.id)"><i class="fa fa-times red-text"></i></a>
+            </div>
         </div>
+    </div>
 
+    <div class="row text-center text-lg-left">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" (click)="getPictures(actualpage - 1)" [class.disabled]="actualpage == 1"
+                    aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li *ngFor="let page of total" class="page-item">
+                <a class="page-link" (click)="getPictures(page)" [class.disabled]="actualpage == page">{{ page }}</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" (click)="getPictures(actualpage + 1)" [class.disabled]="actualpage == getTotal()"
+                    aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
     </div>
 
 </div>

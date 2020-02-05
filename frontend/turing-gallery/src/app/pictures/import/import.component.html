@@ -8,17 +8,18 @@
         </label>
     </div>
     <div class="col-md-2" id="infos">
-        <table>
+        <table aria-describedby="Import Infos">
+            <th id="head"></th>
             <tr>
-                <td><mdb-badge info="true">{{ pictures.length }}</mdb-badge></td>
+                <td><mdb-badge class="mdb-badge" info="true">{{ pictures.length }}</mdb-badge></td>
                 <td><small>images ajoutés</small></td>
             </tr>
             <tr>
-                <td><mdb-badge success="true">{{ validPictureCount }}</mdb-badge></td>
+                <td><mdb-badge class="mdb-badge" success="true">{{ validPictureCount }}</mdb-badge></td>
                 <td><small>images valides</small></td>
             </tr>
             <tr>
-                <td><mdb-badge danger="true">{{ invalidPictureCount }}</mdb-badge></td>
+                <td><mdb-badge class="mdb-badge" danger="true">{{ invalidPictureCount }}</mdb-badge></td>
                 <td><small>images invalides</small></td>
             </tr>
         </table>
@@ -34,7 +35,7 @@
         </div>
         <!--/.Delete -->
         <!--Card-->
-        <mdb-card *ngIf="!isShownDeletes['' + i]">
+        <mdb-card class="mdb-card" *ngIf="!isShownDeletes['' + i]">
             <!--Card image-->
             <div class="view view-cascade overlay waves-light" mdbWavesEffect>
                 <mdb-card-img [src]="picture.url"></mdb-card-img>
@@ -44,14 +45,14 @@
             </div>
             <!--/Card image-->
 
-            <mdb-card-body class="text-center">
+            <mdb-card-body class="mdb-card-body text-center">
                 <footer class="row">
                     <div class="col-md-4">
                         <fa [class]="(picture.isValid) ? 'valid-icon' : 'invalid-icon'" [name]="(picture.isValid) ? 'check-circle' : 'times-circle'" size="2x"></fa>
                     </div>
                     <div id="infos" class="col-md-8">
-                        <small><b>size:</b> {{ picture.size }}</small><br />
-                        <small><b>dim:</b> {{ picture.width }} x {{ picture.height }}</small>
+                        <small><strong>size:</strong> {{ picture.size }}</small><br />
+                        <small><strong>dim:</strong> {{ picture.width }} x {{ picture.height }}</small>
                     </div>
                 </footer>
             </mdb-card-body>
@@ -91,7 +92,7 @@
         </div>
         <div class="modal-body">
             <p>Êtes-vous sûr de vouloir supprimer cette image ?</p>
-            <mdb-card *ngIf="deletedPicture !== null">
+            <mdb-card class="mdb-card" *ngIf="deletedPicture !== null">
                 <!--Card image-->
                 <div class="view view-cascade overlay waves-light" mdbWavesEffect>
                     <mdb-card-img [src]="deletedPicture.url"></mdb-card-img>

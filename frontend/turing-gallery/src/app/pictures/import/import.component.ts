@@ -89,7 +89,8 @@ export class ImportComponent implements OnInit {
           const image = new Image();
           image.src = reader.result as string;
           image.onload = () => {
-            const picture = new Picture(
+            const picture = new Picture();
+            picture.postPicture(
               reader.result as string,
               image.height,
               image.width,

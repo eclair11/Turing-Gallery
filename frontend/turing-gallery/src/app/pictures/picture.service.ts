@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Picture } from './picture';
-import { Gallery } from './gallery';
 
 const SECOND = 1000;
 const MESSAGE_UPLOAD_OK = 'Les images ont été importé avec succés';
-const MESSAGE_UPLOAD_KO = 'L\'importation des images ont échouées, veuillez réessayer';
+const MESSAGE_UPLOAD_KO = 'L\'importation des images a échoué, veuillez réessayer';
 const MESSAGE_DURATION = 6 * SECOND;
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class PictureService {
 
   /** uploading indicator */
@@ -19,9 +19,11 @@ export class PictureService {
   isUploadOk = null;
   uploadMessage = null;
 
-  constructor(private http: HttpClient, private sanitizer : DomSanitizer) { }
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 
-  /** send post request with pictures as multipart-form-data */
+  /**
+   * send post request with pictures as multipart-form-data
+   */
   post = (pictures: Picture[]): void => {
     this.isUploading = true;
     this.isUploadOk = null;
@@ -35,7 +37,7 @@ export class PictureService {
         formData.append('sizes', picture.size + '');
       }
     }
-    this.http.post('http://localhost:9090/api/v1/import', formData).subscribe(
+    this.http.post('http://localhost:9090/api/v1/pictures', formData).subscribe(
       () => {
         this.isUploadOk = true;
         this.isUploading = false;
@@ -54,26 +56,45 @@ export class PictureService {
   }
 
   /**
-   * send a request to get pictures as a json object
+   * send a request to get pictures
    */
-  get = (gallery: Gallery[], page: string): void => {
+  get = (pictures: Picture[], total: number[], page: number): void => {
     this.http.get('http://localhost:9090/api/v1/pictures/' + page).subscribe(
       (data) => {
-        let dataSize = Object.keys(data).length - 1;
-        for(let i = 0; i < dataSize; i++) {
-          const pic = new Gallery();
-          pic.title = data[i].title;
-          pic.height = data[i].height;
-          pic.width = data[i].width;
-          pic.size = data[i].size;
-          let url = URL.createObjectURL(new Blob([data[i].image], { type: "image/jpg" }));
-          pic.image = this.sanitizer.bypassSecurityTrustUrl(url);
-          gallery.push(pic);
+        for (let i = 0; i < data['id'].length; i++) {
+          const picture = new Picture();
+          picture.getPicture(
+            data['id'][i],
+            data['title'][i],
+            data['height'][i],
+            data['width'][i],
+            data['size'][i],
+            this.sanitizer.bypassSecurityTrustUrl(data['image'][i])
+          );
+          pictures.push(picture);
         }
-        //page = data[dataSize];
+        for (let i = 1; i <= data['total']; i++) {
+          total.push(i);
+        }
       },
       (err) => {
         console.log(err);
       });
   }
+
+  /**
+   * send a request to remove pictures
+   */
+  remove = (remove: number[]): void => {
+    const formData = new FormData();
+    formData.append("pictures", remove + '');
+    this.http.put('http://localhost:9090/api/v1/pictures', formData).subscribe(
+      () => {
+        window.location.reload();
+      },
+      (err) => {
+        console.log(err);
+      });
+  }
+
 }

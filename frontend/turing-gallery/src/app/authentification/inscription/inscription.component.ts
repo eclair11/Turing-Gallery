@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../service/user.service';
-import { User } from '../../model/user/user';
+import { UserService } from '../../authentification/service/user.service';
+import { User } from '../../authentification/model/user/user';
 
 @Component({
   selector: 'app-inscription',

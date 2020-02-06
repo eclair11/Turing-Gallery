@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringBootHelloWorldApplication<turgal>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "ujm.turgal.SpringBootHelloWorldApplication",
+            "projectName": "turgal",
+            "args": ""
+        }
+    ]
+}

@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { ConnexionComponent } from './authentification/connexion/connexion.component';
 import { InscriptionComponent } from './authentification/inscription/inscription.component';
 import { LogoutComponent } from './authentification/logout/logout.component';
-import { EmployeeComponent } from './model/job/employee/employee.component';
-import { AddEmployeeComponent } from './model/job/add-employee/add-employee.component';
-import { UserListComponent } from './model/user/user-list/user-list.component';
-import { AuthGaurdService } from './service/auth-gaurd.service';
+import { EmployeeComponent } from './authentification/model/job/employee/employee.component';
+import { AddEmployeeComponent } from './authentification/model/job/add-employee/add-employee.component';
+import { UserListComponent } from './authentification/model/user/user-list/user-list.component';
+import { AuthGaurdService } from './authentification/service/auth-gaurd.service';
 
 const routes: Routes = [
   { path: '', component: EmployeeComponent,canActivate:[AuthGaurdService] },

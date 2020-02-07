@@ -1,0 +1,10 @@
+<div class="container">
+  <div>
+    <h1>Connectez-vous sur Turing Gallery</h1>
+    Insérer votre pseudo (6 lettres min) : <input type="text" name="username" [(ngModel)]="username">
+    <br>Insérer votre mot de passe (6 lettres min) : <input type="password" name="password" [(ngModel)]="password">
+  </div>
+  <button (click)=checkLogin() class="btn btn-success">
+    Connexion
+  </button>
+</div>

@@ -26,7 +26,7 @@ const routes: Routes = [
     component: ConnexionComponent
   },
   */
-  //{ path: 'catalog/generate', component: GenerateComponent },
+  { path: 'catalog/generate', component: GenerateComponent },
   { path: 'pictures/import', component: ImportComponent },
   { path: 'pictures/display', component: DisplayComponent },
   

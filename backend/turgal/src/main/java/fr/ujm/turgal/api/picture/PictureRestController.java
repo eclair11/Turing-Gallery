@@ -67,7 +67,7 @@ public class PictureRestController {
             pictures.add("width", p.getWidth());
             pictures.add("size", p.getSize());
             File file = new File(uploadRootDir.getAbsolutePath() + File.separator + p.getTitle());
-            try(BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file))) {
+            try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file))) {
                 stream.write(p.getImage());
                 pictures.add("image", IMAGES_PATH + p.getTitle());
             } catch (Exception e) {
@@ -75,11 +75,11 @@ public class PictureRestController {
             }
         }
         TypedQuery<Long> queryTotal = entityManager.createQuery("Select count(p.id) From Picture p", Long.class);
-        pictures.add("total", (queryTotal.getSingleResult() / PAGE_SIZE) + 1);
+        pictures.add("total", (queryTotal.getSingleResult() + PAGE_SIZE - 1) / PAGE_SIZE);
         return ResponseEntity.status(HttpStatus.OK).body(pictures);
     }
 
-    @PostMapping(value = "/import", consumes = { "multipart/form-data" })
+    @PostMapping(value = "/pictures", consumes = { "multipart/form-data" })
     public ResponseEntity<String> importPictures(HttpServletRequest request,
             @RequestParam(name = "pictures") MultipartFile[] pictures) {
         String[] widths = request.getParameterValues("widths");
@@ -104,9 +104,12 @@ public class PictureRestController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
-    @PutMapping(value = "/delete", consumes = { "multipart/form-data" })
-    public void deletePictures(@PathVariable Long id, @PathVariable Object pics) {
-        /* UNDER CONSTRUCTION */
+    @PutMapping(value = "/pictures", consumes = { "multipart/form-data" })
+    public ResponseEntity<String> removePictures(@RequestParam(name = "pictures") Long[] ids) {
+        for (Long id : ids) {
+            picRepo.deleteById(id);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
 }

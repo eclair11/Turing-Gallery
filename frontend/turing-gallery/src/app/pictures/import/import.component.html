@@ -1,6 +1,6 @@
 <header class="row">
     <div class="col-md-10">
-        
+
         <label mdbBtn color="default" size="md" class="waves-light" mdbWavesEffect>
             <fa name="upload" size="2x"></fa><br/>
             IMPORTER DES IMAGES DEPUIS MON ORDINATEUR
@@ -11,17 +11,17 @@
         <table aria-describedby="Import Infos">
             <th id="head"></th>
             <tr>
-                <td><mdb-badge class="mdb-badge" info="true">{{ pictures.length }}</mdb-badge></td> 
+                <td><mdb-badge class="mdb-badge" info="true">{{ pictures.length }}</mdb-badge></td>
                 <td><small>images ajoutés</small></td>
             </tr>
             <tr>
-                <td><mdb-badge class="mdb-badge" success="true">{{ validPictureCount }}</mdb-badge></td> 
+                <td><mdb-badge class="mdb-badge" success="true">{{ validPictureCount }}</mdb-badge></td>
                 <td><small>images valides</small></td>
             </tr>
             <tr>
-                <td><mdb-badge class="mdb-badge" danger="true">{{ invalidPictureCount }}</mdb-badge></td> 
+                <td><mdb-badge class="mdb-badge" danger="true">{{ invalidPictureCount }}</mdb-badge></td>
                 <td><small>images invalides</small></td>
-            </tr>    
+            </tr>
         </table>
     </div>
 </header>
@@ -76,7 +76,7 @@
         <fa name="spinner" animation="spin" size="3x"></fa> <small> importation en cours...</small>
     </div>
     <button mdbBtn color="default" block="true" *ngIf="!service.isUploading && pictures.length > 0" (click)="startUpload()">
-        <fa name="cloud-upload" size="2x"></fa> IMPORTER 
+        <fa name="cloud-upload" size="2x"></fa> IMPORTER
     </button>
 </footer>
 

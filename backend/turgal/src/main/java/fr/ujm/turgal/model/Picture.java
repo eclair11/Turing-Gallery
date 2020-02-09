@@ -30,7 +30,8 @@ public class Picture {
     public Picture() {
     }
 
-    public Picture(String title, int size, int height, int width, byte[] image) {
+    public Picture(Long id, String title, int size, int height, int width, byte[] image) {
+        this.id = id;
         this.title = title;
         this.size = size;
         this.height = height;

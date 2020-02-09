@@ -5,12 +5,13 @@ import { Picture } from './picture';
 
 const SECOND = 1000;
 const MESSAGE_UPLOAD_OK = 'Les images ont été importé avec succés';
-const MESSAGE_UPLOAD_KO = 'L\'importation des images ont échouées, veuillez réessayer';
+const MESSAGE_UPLOAD_KO = 'L\'importation des images a échoué, veuillez réessayer';
 const MESSAGE_DURATION = 6 * SECOND;
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class PictureService {
 
   /** uploading indicator */
@@ -20,7 +21,9 @@ export class PictureService {
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 
-  /** send post request with pictures as multipart-form-data */
+  /**
+   * send post request with pictures as multipart-form-data
+   */
   post = (pictures: Picture[]): void => {
     this.isUploading = true;
     this.isUploadOk = null;
@@ -34,7 +37,7 @@ export class PictureService {
         formData.append('sizes', picture.size + '');
       }
     }
-    this.http.post('http://localhost:9090/api/v1/import', formData).subscribe(
+    this.http.post('http://localhost:9090/api/v1/pictures', formData).subscribe(
       () => {
         this.isUploadOk = true;
         this.isUploading = false;
@@ -53,7 +56,7 @@ export class PictureService {
   }
 
   /**
-   * send a request to get pictures as json object
+   * send a request to get pictures
    */
   get = (pictures: Picture[], total: number[], page: number): void => {
     this.http.get('http://localhost:9090/api/v1/pictures/' + page).subscribe(
@@ -73,10 +76,25 @@ export class PictureService {
         for (let i = 1; i <= data['total']; i++) {
           total.push(i);
         }
-        console.log(pictures);
       },
       (err) => {
         console.log(err);
       });
   }
+
+  /**
+   * send a request to remove pictures
+   */
+  remove = (remove: number[]): void => {
+    const formData = new FormData();
+    formData.append("pictures", remove + '');
+    this.http.put('http://localhost:9090/api/v1/pictures', formData).subscribe(
+      () => {
+        window.location.reload();
+      },
+      (err) => {
+        console.log(err);
+      });
+  }
+
 }

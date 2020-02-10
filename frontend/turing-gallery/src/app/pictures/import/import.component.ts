@@ -27,6 +27,10 @@ export class ImportComponent implements OnInit {
   ngOnInit() {
   }
 
+  isComponentValid() {
+    return this.pictures.length > 0 && this.validPictureCount > 0 && this.invalidPictureCount == 0;
+  }
+
   startUpload = () => {
     this.service.post(this.pictures);
     this.reinitPicture();

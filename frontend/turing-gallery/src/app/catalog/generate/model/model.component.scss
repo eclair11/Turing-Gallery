@@ -1,6 +1,7 @@
 section {
     padding: 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.7);
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    margin-bottom: 50px;
 }
 nav {
     display: flex;
@@ -14,8 +15,6 @@ article {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
-    // border: 2px dashed rgba(255, 255, 255, 0.7);
-    // padding: 1rem;
     position: relative;
     height: 500px;
     overflow: hidden;

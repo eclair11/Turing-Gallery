@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../authentification/service/user.service';
 import { User } from '../../authentification/model/user/user';
@@ -12,11 +13,15 @@ export class InscriptionComponent{
  
   user: User;
 
+
   username = ''
   password = ''
 
-  ngOnInit() {
+
+  ngOnInit() { 
   }
+
+  
  
   constructor(
     private route: ActivatedRoute, 

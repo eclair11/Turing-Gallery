@@ -26,8 +26,6 @@ export class CustomizeComponent implements OnInit {
   pic2: Picture = null;
 
 
-
-
   constructor(public fb: FormBuilder, private service: PictureService) {
   }
 

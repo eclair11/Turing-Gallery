@@ -12,10 +12,14 @@
             <app-model *ngIf="step === 1"></app-model>
 
             <!-- COMPONENT : CHOIX IMAGES -->
-            <app-pictures *ngIf="step === 2"></app-pictures>
+            <app-import *ngIf="step === 2"></app-import>
 
             <!-- COMPONENT : PERSONNALISATION -->
             <app-customize *ngIf="step === 3"></app-customize>
+
+            <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
 
             <nav class="row">
                 <div *ngIf="step === 1" class="col-md-6">

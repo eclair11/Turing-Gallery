@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModelComponent } from './model/model.component';
+import { ImportComponent } from '../../pictures/import/import.component';
+import { Picture } from '../../pictures/picture';
 
 
 @Component({
@@ -19,6 +21,15 @@ export class GenerateComponent implements OnInit {
     "Remplissez le formulaire ci-dessous pour pérsonnaliser votre catalogue"
   ]
   step: number = 1;
+  errorMessage = '';
+
+  selectedModel = 0;
+  pictures: Picture[] = [];
+
+  @ViewChild(ModelComponent, null)
+  private modelComponent: ModelComponent;
+  @ViewChild(ImportComponent, null)
+  private importComponent: ImportComponent;
 
   constructor() { }
 
@@ -26,13 +37,27 @@ export class GenerateComponent implements OnInit {
   }
 
   onClickNextStep = () => {
-    if (this.step < this.STEPS_TITLE.length) {
+    if (this.step == 1 && this.modelComponent.isComponentValid() ) {
       this.step++;
+      this.errorMessage = '';
+      this.selectedModel = this.modelComponent.selectedModel;
+    }
+    else if (this.step == 1 && !this.modelComponent.isComponentValid() ) {
+      this.errorMessage = "Veuillez séléctionner un model de catalogue pour continuer";
+    }
+    else if (this.step == 2 && this.importComponent.isComponentValid()) {
+      this.step++;
+      this.errorMessage = '';
+      this.pictures = this.importComponent.pictures;
+    }
+    else if (this.step == 2 && !this.importComponent.isComponentValid()) {
+      this.errorMessage = "Veuillez importer des images valides pour votre catalogue"
     }
   }
 
   onClickPreviousStep = () => {
     if (this.step > 1) {
+      this.errorMessage = '';
       this.step--;
     }
   }

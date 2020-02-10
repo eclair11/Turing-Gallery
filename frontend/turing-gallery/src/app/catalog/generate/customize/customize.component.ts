@@ -25,6 +25,9 @@ export class CustomizeComponent implements OnInit {
   pic1: Picture = null;
   pic2: Picture = null;
 
+   // indicator when this component is valid (usefull for its parents)
+   isComponentValid = false;
+
 
   constructor(public fb: FormBuilder, private service: PictureService) {
   }

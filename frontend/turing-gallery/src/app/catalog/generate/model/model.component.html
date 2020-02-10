@@ -1,60 +1,47 @@
-<!--Carousel Wrapper-->
-<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
-    <!--Indicators-->
-    <ol class="carousel-indicators">
-        <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-2" data-slide-to="1"></li>
-        <li data-target="#carousel-example-2" data-slide-to="2"></li>
-    </ol>
-    <!--/.Indicators-->
-    <!--Slides-->
-    <div class="carousel-inner" role="listbox">
-        <div class="carousel-item active">
-            <div class="view">
-                <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
-                    alt="First slide">
-                <div class="mask rgba-black-light"></div>
+<section>
+    <nav class="row">
+        <fa class="btn btn-info fa" name="chevron-left" size="3x" (click)=" onClickPreviousPages()"></fa>
+        <h3>PAGES {{ currentPages }}</h3>
+        <fa class="btn btn-info fa" name="chevron-right" size="3x" (click)="onClickNextPages()"></fa>
+    </nav>
+
+    <article class="row">
+        <p *ngFor="let imgUrl of pages"><img [src]="imgUrl" alt="modele catalogue" width="296" height="421"/></p>
+    </article>
+
+    <footer class="row">
+        <div class="col-sm-8" id="modele">
+            <fa class="btn btn-info fa" name="arrow-left" size="2x"></fa>
+            <div class="custom-control custom-checkbox checkbox">
+                <input type="checkbox" class="custom-control-input" id="check-model-1" (change)="onChangeSelectModel($event, basicModal);">
+                <label class="custom-control-label" for="check-model-1">MODELE N°{{ currentModel }}</label>
             </div>
-            <div class="carousel-caption">
-                <h3 class="h3-responsive">Light mask</h3>
-                <p>First text</p>
-            </div>
+            <fa class="btn btn-info fa" name="arrow-right" size="2x"></fa>
         </div>
-        <div class="carousel-item">
-            <!--Mask color-->
-            <div class="view">
-                <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
-                    alt="Second slide">
-                <div class="mask rgba-black-strong"></div>
-            </div>
-            <div class="carousel-caption">
-                <h3 class="h3-responsive">Strong mask</h3>
-                <p>Secondary text</p>
-            </div>
+        <div class="col-sm-4">
+            1/2
         </div>
-        <div class="carousel-item">
-            <!--Mask color-->
-            <div class="view">
-                <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
-                    alt="Third slide">
-                <div class="mask rgba-black-slight"></div>
-            </div>
-            <div class="carousel-caption">
-                <h3 class="h3-responsive">Slight mask</h3>
-                <p>Third text</p>
-            </div>
+    </footer>
+</section>
+
+<!-- Modal Model choice confirmation -->
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100" id="myModalLabel">Choix d'un modèle de catalogue</h4>
         </div>
+        <div class="modal-body">
+            <p>Êtes-vous sûr de vouloir utiliser le <strong>MODELE  N° {{ selectedModel }}</strong> pour votre catalogue ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close" (click)="basicModal.hide();onClickCancel()" mdbWavesEffect>Annuler</button>
+          <button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.hide();" mdbWavesEffect>Oui</button>
+        </div>
+      </div>
     </div>
-    <!--/.Slides-->
-    <!--Controls-->
-    <a class="carousel-control-prev" href="/catalog/generate#carousel-example-2" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="/catalog/generate#carousel-example-2" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-    <!--/.Controls-->
-</div>
-<!--/.Carousel Wrapper-->
+  </div>
+<!-- /.Modal Model choice confirmation -->

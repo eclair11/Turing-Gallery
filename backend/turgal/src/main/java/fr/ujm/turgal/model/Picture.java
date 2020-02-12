@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 /**
  * Picture
@@ -14,7 +15,7 @@ public class Picture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String title;
 
@@ -26,7 +27,10 @@ public class Picture {
 
     @Lob
     private byte[] image;
-    
+
+    @ManyToOne
+    private User user;
+
     public Picture() {
     }
 
@@ -39,11 +43,11 @@ public class Picture {
         this.image = image;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -85,6 +89,14 @@ public class Picture {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

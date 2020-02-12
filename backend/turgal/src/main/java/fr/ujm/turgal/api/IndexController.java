@@ -1,4 +1,3 @@
-
 package fr.ujm.turgal.api;
 
 import org.springframework.web.bind.annotation.GetMapping;

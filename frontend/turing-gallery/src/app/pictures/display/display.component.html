@@ -7,7 +7,11 @@
 
     <hr class="mt-2 mb-5">
 
-    <div class="row text-center text-lg-left">
+    <h3 class="font-weight-light text-center" [hidden]="!isPicturesEmpty()">
+        Vous n'avez aucune image dans votre galerie.
+    </h3>
+
+    <div class="row text-center text-lg-left" [hidden]="isPicturesEmpty()">
         <div id="{{pic.id}}" *ngFor="let pic of pictures" class="col-lg-3 col-md-4 col-6">
             <a class="mb-4 h-100" [href]="pic.image">
                 <img class="img-fluid img-thumbnail" alt="Image" [src]="pic.image">
@@ -19,7 +23,7 @@
         </div>
     </div>
 
-    <div class="row text-center text-lg-left">
+    <div class="row text-center text-lg-left" [hidden]="isPicturesEmpty()">
         <ul class="pagination">
             <li class="page-item">
                 <a class="page-link" (click)="getPictures(actualpage - 1)" [class.disabled]="actualpage == 1"
@@ -32,7 +36,7 @@
                 <a class="page-link" (click)="getPictures(page)" [class.disabled]="actualpage == page">{{ page }}</a>
             </li>
             <li class="page-item">
-                <a class="page-link" (click)="getPictures(actualpage + 1)" [class.disabled]="actualpage == getTotal()"
+                <a class="page-link" (click)="getPictures(actualpage + 1)" [class.disabled]="actualpage == getTotalPage()"
                     aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>

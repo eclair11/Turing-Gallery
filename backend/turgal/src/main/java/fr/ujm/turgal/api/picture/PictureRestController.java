@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.ujm.turgal.model.Picture;
 import fr.ujm.turgal.model.PictureRepository;
+import fr.ujm.turgal.model.User;
+import fr.ujm.turgal.model.UserRepository;
 
 /**
  * PictureRestController
@@ -47,17 +50,22 @@ public class PictureRestController {
     @Autowired
     PictureRepository picRepo;
 
+    @Autowired
+    UserRepository userRepo;
+
     @PersistenceContext
     EntityManager entityManager;
 
-    @GetMapping(value = "/pictures/{page}", produces = { "application/json" })
-    public ResponseEntity<MultiValueMap<String, Object>> getPictures(@PathVariable int page) {
+    @GetMapping(value = "/pictures/{username}/{page}", produces = { "application/json" })
+    public ResponseEntity<MultiValueMap<String, Object>> getPictures(@PathVariable String username,
+            @PathVariable int page) throws IOException {
+        Long id = userRepo.findByUsername(username).get().getId();
         MultiValueMap<String, Object> pictures = new LinkedMultiValueMap<>();
         File uploadRootDir = new File(UPLOAD_PATH);
         if (!uploadRootDir.exists()) {
             uploadRootDir.mkdirs();
         }
-        TypedQuery<Picture> query = entityManager.createQuery("From Picture p", Picture.class);
+        TypedQuery<Picture> query = entityManager.createQuery("From Picture p Where user_id=" + id, Picture.class);
         query.setFirstResult((page - 1) * PAGE_SIZE);
         query.setMaxResults(PAGE_SIZE);
         for (Picture p : query.getResultList()) {
@@ -67,24 +75,25 @@ public class PictureRestController {
             pictures.add("width", p.getWidth());
             pictures.add("size", p.getSize());
             File file = new File(uploadRootDir.getAbsolutePath() + File.separator + p.getTitle());
-            try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file))) {
-                stream.write(p.getImage());
-                pictures.add("image", IMAGES_PATH + p.getTitle());
-            } catch (Exception e) {
-                logger.error(e.getMessage());
-            }
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
+            stream.write(p.getImage());
+            stream.close();
+            pictures.add("image", IMAGES_PATH + p.getTitle());
         }
-        TypedQuery<Long> queryTotal = entityManager.createQuery("Select count(p.id) From Picture p", Long.class);
+        TypedQuery<Long> queryTotal = entityManager.createQuery("Select count(p.id) From Picture p Where user_id=" + id,
+                Long.class);
         pictures.add("total", (queryTotal.getSingleResult() + PAGE_SIZE - 1) / PAGE_SIZE);
         return ResponseEntity.status(HttpStatus.OK).body(pictures);
     }
 
     @PostMapping(value = "/pictures", consumes = { "multipart/form-data" })
     public ResponseEntity<String> importPictures(HttpServletRequest request,
-            @RequestParam(name = "pictures") MultipartFile[] pictures) {
+            @RequestParam(name = "pictures") MultipartFile[] pictures) throws IOException {
         String[] widths = request.getParameterValues("widths");
         String[] heights = request.getParameterValues("heights");
         String[] sizes = request.getParameterValues("sizes");
+        String[] username = request.getParameterValues("username");
+        Optional<User> user = userRepo.findByUsername(username[0]);
         int i = 0;
         while (i < sizes.length) {
             Picture picture = new Picture();
@@ -93,11 +102,8 @@ public class PictureRestController {
             picture.setHeight(Integer.valueOf(heights[i]));
             picture.setSize(Integer.valueOf(sizes[i]));
             picture.setTitle(file.getOriginalFilename());
-            try {
-                picture.setImage(file.getBytes());
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-            }
+            picture.setImage(file.getBytes());
+            picture.setUser(user.get());
             picRepo.save(picture);
             i++;
         }
@@ -105,9 +111,15 @@ public class PictureRestController {
     }
 
     @PutMapping(value = "/pictures", consumes = { "multipart/form-data" })
-    public ResponseEntity<String> removePictures(@RequestParam(name = "pictures") Long[] ids) {
+    public ResponseEntity<String> removePictures(HttpServletRequest request,
+            @RequestParam(name = "pictures") Long[] ids) {
+        String[] username = request.getParameterValues("username");
+        Optional<User> user = userRepo.findByUsername(username[0]);
         for (Long id : ids) {
-            picRepo.deleteById(id);
+            Picture p = picRepo.findById(id).get();
+            if (p.getUser().getId() == user.get().getId()) {
+                picRepo.delete(p);
+            }
         }
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }

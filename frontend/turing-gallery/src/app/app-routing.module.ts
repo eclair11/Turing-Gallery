@@ -26,18 +26,18 @@ const routes: Routes = [
     component: ConnexionComponent
   },
   */
-  { path: 'catalog/generate', component: GenerateComponent },
-  { path: 'pictures/import', component: ImportComponent },
-  { path: 'pictures/display', component: DisplayComponent },
-  
+  { path: 'catalog/generate', component: GenerateComponent, canActivate: [AuthGaurdService] },
+  { path: 'pictures/import', component: ImportComponent, canActivate: [AuthGaurdService] },
+  { path: 'pictures/display', component: DisplayComponent, canActivate: [AuthGaurdService] },
+
   //sécurité
-  { path: 'viewemployees', component: EmployeeComponent,canActivate:[AuthGaurdService] },
-  { path: 'addemployee', component: AddEmployeeComponent,canActivate:[AuthGaurdService]},
+  { path: 'viewemployees', component: EmployeeComponent, canActivate: [AuthGaurdService] },
+  { path: 'addemployee', component: AddEmployeeComponent, canActivate: [AuthGaurdService] },
   { path: 'connexion', component: ConnexionComponent },
-  { path: 'logout', component: LogoutComponent,canActivate:[AuthGaurdService] },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGaurdService] },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'users', component: UserListComponent },
-  
+
 ];
 
 @NgModule({

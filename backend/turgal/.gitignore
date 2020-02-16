@@ -36,3 +36,4 @@ sonar-project.properties
 
 ### Temp Picture Folder ###
 src/main/resources/static/images/
+src/test/resources/img

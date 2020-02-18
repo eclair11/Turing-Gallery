@@ -29,8 +29,6 @@ export class CustomizeComponent implements OnInit {
    isComponentValid = false;
 
 
-
-
   constructor(public fb: FormBuilder, private service: PictureService) {
   }
 

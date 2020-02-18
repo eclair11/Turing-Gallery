@@ -3,6 +3,10 @@ package fr.ujm.turgal.api.authentification;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +34,10 @@ public class InscriptionController {
     PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
-    public UserRepository userRepo;
+    UserRepository userRepo;
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @PostMapping("/inscription")
     public Boolean addUser(@RequestBody User user) throws Exception {
@@ -54,10 +61,19 @@ public class InscriptionController {
         return (List<User>) userRepo.findAll();
     }
 
-    @GetMapping("users/{userId}")
+    @GetMapping("/users/{userId}")
     public Optional<User> getUser(@PathVariable String userId) {
         Long userLongId = Long.parseLong(userId);
         return userRepo.findById(userLongId);
+    }
+
+    @Transactional
+    @RequestMapping("/users/{username}/delete")
+    public void deleteUser(@PathVariable String username) {
+        Optional<User> user = userRepo.findByUsername(username);
+        Query query = entityManager.createQuery("Delete From Picture p Where user_id=" + user.get().getId());
+        query.executeUpdate();
+        userRepo.delete(user.get());
     }
 
 }

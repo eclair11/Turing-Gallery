@@ -57,7 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/api/v1/authentification/authenticate", "/api/v1/authentification/inscription",
 						"/api/v1/authentification/users")
-				.permitAll().antMatchers(HttpMethod.OPTIONS, "/**").permitAll().
+				.permitAll().antMatchers(HttpMethod.OPTIONS, "/**").permitAll().antMatchers(HttpMethod.GET, "/**")
+				.permitAll().
 				// all other requests need to be authenticated
 				anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to

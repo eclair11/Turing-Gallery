@@ -14,6 +14,7 @@ export class DisplayComponent implements OnInit {
   total: number[] = [];
   remove: number[] = [];
   actualpage: number;
+  username: string = sessionStorage.getItem("username");
 
   constructor(private service: PictureService) { }
 
@@ -22,11 +23,15 @@ export class DisplayComponent implements OnInit {
     this.getPictures(1);
   }
 
+  isPicturesEmpty = (): boolean => {
+    return this.pictures.length == 0;
+  }
+
   getTotalRemove = (): boolean => {
     return this.remove.length == 0;
   }
 
-  getTotal = (): number => {
+  getTotalPage = (): number => {
     return this.total[this.total.length - 1];
   }
 
@@ -48,11 +53,11 @@ export class DisplayComponent implements OnInit {
     this.pictures = [];
     this.total = [];
     this.remove = [];
-    this.service.get(this.pictures, this.total, page);
+    this.service.get(this.pictures, this.total, this.username, page);
   }
 
   removePictures = (): void => {
-    this.service.remove(this.remove);
+    this.service.remove(this.remove, this.username);
   }
 
 }

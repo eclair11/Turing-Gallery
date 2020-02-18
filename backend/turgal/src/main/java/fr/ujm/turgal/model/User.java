@@ -9,13 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
-
 /**
  * User
  */
 @Entity
-@Data
 public class User {
 
     @Id
@@ -23,8 +20,11 @@ public class User {
     private Long id;
 
     private String username;
+
     private String displayname;
+
     private String password;
+
     private String email;
 
     
@@ -33,7 +33,6 @@ public class User {
     private Date dateInscription = new Date();
 
     public User() {
-
     }
 
     public User(String username, String password) {

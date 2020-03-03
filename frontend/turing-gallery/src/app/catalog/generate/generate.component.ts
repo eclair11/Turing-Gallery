@@ -79,6 +79,7 @@ export class GenerateComponent implements OnInit, AfterViewInit {
       this.customInfo.enterprise = this.customizeComponent.entreprise.value;
       this.customInfo.mail = this.customizeComponent.email.value;
       this.customInfo.phone = this.customizeComponent.tel.value;
+      this.customInfo.author = this.customizeComponent.auteur.value;
       this.catalog.drawPages(coverPictures, this.customInfo);
     }
     else if (this.step == 3 && !this.customizeComponent.isComponentValid()) {
@@ -91,12 +92,10 @@ export class GenerateComponent implements OnInit, AfterViewInit {
       this.errorMessage = '';
       this.step--;
       if (this.step >= 2) {
-        console.log("delete pictures and catalog");
         this.pictures = null;
         this.catalog = null;
       }
       if (this.step == 1) {
-        console.log("delete selectedModel");
         this.selectedModel = null;
       }
     }

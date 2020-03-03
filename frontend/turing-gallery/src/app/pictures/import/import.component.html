@@ -71,7 +71,7 @@
     </div>
 </section>
 
-<footer id="btn-container">
+<footer id="btn-container" *ngIf="showImport">
     <div  *ngIf="service.isUploading" class="text-info">
         <fa name="spinner" animation="spin" size="3x"></fa> <small> importation en cours...</small>
     </div>

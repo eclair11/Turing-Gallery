@@ -2,7 +2,7 @@
     <div id="page-content">
         <div class="container text-center">
             <div class="row justify-content-center">
-                <div class="col-md-7">
+                <div class="col-md-7" *ngIf="step < 4">
                     <h1 class="font-weight-light mt-4 text-white">ETAPE {{ step }} : {{STEPS_TITLE[step-1]}}</h1>
                     <p class="lead text-white-50">{{ STEPS_SUBTITLE[step-1] }}</p>
                 </div>
@@ -12,10 +12,15 @@
             <app-model *ngIf="step === 1"></app-model>
 
             <!-- COMPONENT : CHOIX IMAGES -->
-            <app-import *ngIf="step === 2"></app-import>
+            <app-import *ngIf="step === 2" [showImport]="false"></app-import>
 
             <!-- COMPONENT : PERSONNALISATION -->
-            <app-customize *ngIf="step === 3"></app-customize>
+            <app-customize *ngIf="step === 3" [catalogModel]="selectedModel"></app-customize>
+
+            <!-- PREVIEW CATALOG GENERATED -->
+            <section *ngIf="catalog">
+                <div *ngFor="let page of catalog.pages" [id]="'page-' + page.id" class="page"></div>
+            </section>
 
             <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
                 {{ errorMessage }}
@@ -37,7 +42,7 @@
                             name="arrow-right"></fa></button>
                 </div>
                 <div *ngIf="step === STEPS_TITLE.length" class="col-md-6">
-                    <button type="button" class="btn btn-warning">Générer le catalogue <fa
+                    <button type="button" class="btn btn-warning" (click)="onClickNextStep();">Générer le catalogue <fa
                             name="cogs"></fa></button>
                 </div>
             </nav>
@@ -49,4 +54,14 @@
             <small>Copyright &copy; turing-gallery</small>
         </div>
     </footer>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <p id="myModalContent"></p>
+    </div>
+  </div>
+  
 </main>

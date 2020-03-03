@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Picture } from '../picture';
 import { PictureService } from '../picture.service';
 
@@ -10,7 +10,7 @@ import { PictureService } from '../picture.service';
   styleUrls: ['./import.component.scss']
 })
 export class ImportComponent implements OnInit {
-
+  @Input() showimport: boolean = true;
   /** all pictures that have been added */
   pictures: Picture[] = [];
   /** number of valid picture */

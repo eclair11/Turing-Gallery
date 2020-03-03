@@ -26,6 +26,10 @@ export class Picture {
         this.size = file.size;
     }
 
+    canFit(maxWidth: number, maxHeight: number): boolean {
+        return this.height >= maxHeight && this.width >= maxWidth;
+    }
+
     getPicture = (id: number, title: string, height: number, width: number, size: number, image: SafeUrl): void => {
         this.id = id;
         this.title = title;

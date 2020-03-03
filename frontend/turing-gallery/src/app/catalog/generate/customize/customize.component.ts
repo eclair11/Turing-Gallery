@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { Validators, FormControl, FormBuilder } from '@angular/forms';
 import { Picture } from 'src/app/pictures/picture';
 import { PictureService } from 'src/app/pictures/picture.service';
+import { CatalogModel } from '../catalog-model';
 
 
 
@@ -12,21 +13,18 @@ import { PictureService } from 'src/app/pictures/picture.service';
 })
 
 export class CustomizeComponent implements OnInit {
-  email = new FormControl('', [Validators.required, Validators.email]);
-  titre = new FormControl('', [Validators.required]);
-  description = new FormControl('', [Validators.required]);
-  resume = new FormControl('', [Validators.required]);
-  tel = new FormControl('', [Validators.required]);
-  entreprise = new FormControl('', [Validators.required]);
-  auteur = new FormControl('', [Validators.required]);
+  @Input() catalogModel: CatalogModel;
+  email = new FormControl('votremail@example.fr', [Validators.required, Validators.email]);
+  titre = new FormControl('Titre du catalogue', [Validators.required]);
+  description = new FormControl('Description du catalogue', [Validators.required]);
+  resume = new FormControl('Un bref résumé du contenus du catalogue', [Validators.required]);
+  tel = new FormControl('XX XX XX XX XX', [Validators.required]);
+  entreprise = new FormControl('Nom de l\'entreprise', [Validators.required]);
+  auteur = new FormControl('Nom de l\'auteur', [Validators.required]);
 
   /** all pictures that have been added */
-  pictures: Picture[] = [];
   pic1: Picture = null;
   pic2: Picture = null;
-
-   // indicator when this component is valid (usefull for its parents)
-   isComponentValid = false;
 
 
   constructor(public fb: FormBuilder, private service: PictureService) {
@@ -35,10 +33,27 @@ export class CustomizeComponent implements OnInit {
   ngOnInit() {
   }
 
+  isComponentValid() {
+    // TODO : test if component is valid, return true if it's the case, false otherwise
+    return (
+      this.pic1 && this.pic2 &&
+      this.pic1.isValid && 
+      this.pic1.canFit(this.catalogModel.pageWidth, this.catalogModel.pageHeight) &&
+      this.pic2.isValid && 
+      this.pic2.canFit(this.catalogModel.pageWidth, this.catalogModel.pageHeight) &&
+      !this.titre.hasError('required') &&
+      !this.auteur.hasError('required') &&
+      !this.email.hasError('email') &&
+      !this.description.hasError('required') &&
+      !this.entreprise.hasError('required') &&
+      !this.tel.hasError('required')
+    )
+  }
+
   // email
   getErrorMessage() {
-    return this.email.hasError('required') ? 'You must enter the email' :
-      this.email.hasError('email') ? 'Not a valid email' :
+    return this.email.hasError('required') ? 'Vous devez saisir votre email' :
+      this.email.hasError('email') ? 'email non valide' :
         '';
   }
 
@@ -53,50 +68,49 @@ export class CustomizeComponent implements OnInit {
 
   // titre
   getErrorMessage1() {
-    return this.titre.hasError('required') ? 'You must enter the title' :
-      this.titre.hasError('titre') ? 'Not a valid titre' :
+    return this.titre.hasError('required') ? 'Vous devez saisir un titre' :
+      this.titre.hasError('titre') ? 'Titre non valide' :
         '';
   }
 
   // description
   getErrorMessage2() {
-    return this.description.hasError('required') ? 'You must enter the description' :
-      this.description.hasError('description') ? 'Not a valid ' :
+    return this.description.hasError('required') ? 'Vous devez saisir une description' :
+      this.description.hasError('description') ? 'Description non valide' :
         '';
   }
 
   //  resume
 
   getErrorMessage3() {
-    return this.resume.hasError('required') ? 'You must enter the resume' :
-      this.resume.hasError('resume') ? 'Not a valid ' :
+    return this.resume.hasError('required') ? 'Vous devez saisir un résumé ' :
+      this.resume.hasError('resume') ? 'Résumé non valide' :
         '';
   }
 
   //  tel
   getErrorMessage4() {
-    return this.tel.hasError('required') ? 'You must enter the phone number' :
-      this.tel.hasError('tel') ? 'Not a valid phone number ' :
+    return this.tel.hasError('required') ? 'Vous devez entrer votre numéro de téléphone' :
+      this.tel.hasError('tel') ? 'Numéro de téléphone invalide' :
         '';
 
   }
 
   // entreprise
   getErrorMessage5() {
-    return this.entreprise.hasError('required') ? 'You must enter entreprise name' :
-      this.entreprise.hasError('entreprise') ? 'Not a valid ' :
+    return this.entreprise.hasError('required') ? 'Vous devez entrer le nom de votre entreprise' :
+      this.entreprise.hasError('entreprise') ? 'Nom non valide ' :
         '';
   }
   // auteur
   getErrorMessage6() {
-    return this.auteur.hasError('required') ? 'You must enter the author name' :
-      this.auteur.hasError('entreprise') ? 'Not a valid ' :
+    return this.auteur.hasError('required') ? 'Vous devez renseigner le nom de l\'auteur' :
+      this.auteur.hasError('entreprise') ? 'Nom non valide' :
         '';
   }
 
 
   preview2 = (files: any[]): void => {
-
     if (files.length === 0) {
       return;
     }
@@ -117,14 +131,13 @@ export class CustomizeComponent implements OnInit {
               file
             );
             this.pic1 = picture;
-
           };
         };
       }
     }
   }
-  preview1 = (files: any[]): void => {
 
+  preview1 = (files: any[]): void => {
     if (files.length === 0) {
       return;
     }
@@ -145,7 +158,6 @@ export class CustomizeComponent implements OnInit {
               file
             );
             this.pic2 = picture;
-
           };
         };
       }

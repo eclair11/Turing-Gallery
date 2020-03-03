@@ -124,7 +124,7 @@ export class CustomizeComponent implements OnInit {
           image.src = reader.result as string;
           image.onload = () => {
             const picture = new Picture();
-              picture.postPicture(
+            picture.postPicture(
               reader.result as string,
               image.height,
               image.width,

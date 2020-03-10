@@ -6,6 +6,9 @@ import { CatalogModel } from './catalog-model';
 import { Catalog } from '../catalog';
 import { CustomizeComponent } from './customize/customize.component';
 import { CustomInfo } from '../custom-info';
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 
@@ -32,6 +35,7 @@ export class GenerateComponent implements OnInit, AfterViewInit {
   pictures: Picture[] = [];
   catalog: Catalog = null;
   customInfo: CustomInfo = new CustomInfo();
+  catalogDocDefinitionPdf: any;
 
   @ViewChild(ModelComponent, null)
   private modelComponent: ModelComponent;
@@ -46,6 +50,24 @@ export class GenerateComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+  }
+
+  generateDocDefinitionPdf = () => {
+    const docDefinition = {content: [], pageMargins: 0,  pageSize: { width: this.selectedModel.pageWidth, height: this.selectedModel.pageHeight }};
+    for(let page of this.catalog.pages) {
+      const imgDataURL = page.stage.toDataURL();
+      const img = {image: imgDataURL + "", margin: 0, x: 0, y: 0, width: this.selectedModel.pageWidth, height: this.selectedModel.pageHeight};
+      docDefinition.content.push(img);
+    }
+    console.log(docDefinition);
+    this.catalogDocDefinitionPdf = docDefinition;
+  }
+
+  onClickDownload = () => {
+    this.generateDocDefinitionPdf();
+    if (this.catalogDocDefinitionPdf) {
+      pdfMake.createPdf(this.catalogDocDefinitionPdf).download();
+    }
   }
 
   generateCatalog = () => {

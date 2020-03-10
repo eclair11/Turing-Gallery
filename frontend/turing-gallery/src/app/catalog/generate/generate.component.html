@@ -45,6 +45,10 @@
                     <button type="button" class="btn btn-warning" (click)="onClickNextStep();">Générer le catalogue <fa
                             name="cogs"></fa></button>
                 </div>
+                <div *ngIf="step > STEPS_TITLE.length" class="col-md-6">
+                    <button type="button" class="btn btn-warning" (click)="onClickDownload();"> Télécharger <fa
+                            name="download"></fa></button>
+                </div>
             </nav>
         </div>
 

@@ -60,6 +60,7 @@ export class PictureService {
    * send a request to get pictures
    */
   get = (pictures: Picture[], total: number[], username: string, page: number): void => {
+    this.isUploading = true;
     this.http.get('http://localhost:9090/api/v1/pictures/' + username + '/' + page).subscribe(
       (data) => {
         if (data['id'] != null) {
@@ -79,9 +80,11 @@ export class PictureService {
             total.push(i);
           }
         }
+        this.isUploading = false;
       },
       (err) => {
         console.log(err);
+        this.isUploading = false;
       });
   }
 

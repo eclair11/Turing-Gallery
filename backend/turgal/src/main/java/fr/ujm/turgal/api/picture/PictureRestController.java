@@ -58,7 +58,7 @@ public class PictureRestController {
 
     @GetMapping(value = "/pictures/{username}/{page}", produces = { "application/json" })
     public ResponseEntity<MultiValueMap<String, Object>> getPictures(@PathVariable String username,
-            @PathVariable int page) throws IOException {
+            @PathVariable int page) throws IOException, InterruptedException {
         Long id = userRepo.findByUsername(username).get().getId();
         MultiValueMap<String, Object> pictures = new LinkedMultiValueMap<>();
         File uploadRootDir = new File(UPLOAD_PATH);
@@ -74,15 +74,16 @@ public class PictureRestController {
             pictures.add("height", p.getHeight());
             pictures.add("width", p.getWidth());
             pictures.add("size", p.getSize());
-            File file = new File(uploadRootDir.getAbsolutePath() + File.separator + p.getTitle());
+            File file = new File(uploadRootDir.getAbsolutePath() + File.separator + id + p.getTitle());
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
             stream.write(p.getImage());
             stream.close();
-            pictures.add("image", IMAGES_PATH + p.getTitle());
+            pictures.add("image", IMAGES_PATH + id + p.getTitle());
         }
         TypedQuery<Long> queryTotal = entityManager.createQuery("Select count(p.id) From Picture p Where user_id=" + id,
                 Long.class);
         pictures.add("total", (queryTotal.getSingleResult() + PAGE_SIZE - 1) / PAGE_SIZE);
+        Thread.sleep(2000);
         return ResponseEntity.status(HttpStatus.OK).body(pictures);
     }
 

@@ -14,7 +14,7 @@ export class DisplayComponent implements OnInit {
   total: number[] = [];
   remove: number[] = [];
   actualpage: number;
-  username: string = sessionStorage.getItem("username");
+  username: string = sessionStorage.getItem('username');
 
   constructor(private service: PictureService) { }
 
@@ -24,6 +24,10 @@ export class DisplayComponent implements OnInit {
   }
 
   isPicturesEmpty = (): boolean => {
+    return this.service.isUploading == false && this.pictures.length == 0;
+  }
+
+  isPageEmpty = (): boolean => {
     return this.pictures.length == 0;
   }
 
@@ -37,7 +41,7 @@ export class DisplayComponent implements OnInit {
 
   setRemove = (id: number): void => {
     let index = this.remove.indexOf(id);
-    let element = document.getElementById(id + '');
+    let element = document.getElementById('pic' + id + '');
     if (index == -1) {
       this.remove.push(id);
       element.style.background = 'green';

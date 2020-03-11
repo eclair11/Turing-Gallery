@@ -14,7 +14,13 @@ export class ConnexionComponent implements OnInit {
   invalidLogin = false
 
   constructor(private router: Router,
-    private loginservice: AuthenticationService) { }
+    private loginservice: AuthenticationService) {
+    
+    if (this.loginservice.isUserLoggedIn()) {
+      this.router.navigate(['home'])
+    }
+    
+  }
 
   ngOnInit() {
   }
@@ -22,16 +28,16 @@ export class ConnexionComponent implements OnInit {
   checkLogin() {
     (this.loginservice.authenticate(this.username, this.password).subscribe(
       data => {
-        this.router.navigate(['viewemployees'])
+        this.router.navigate(['home'])
         this.invalidLogin = false
       },
       error => {
         this.invalidLogin = true
-
+        console.log("Données erronées")
       }
-    )
+      )
     );
 
   }
-
+  
 }

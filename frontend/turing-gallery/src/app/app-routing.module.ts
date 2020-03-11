@@ -26,7 +26,7 @@ const routes: Routes = [
     component: ConnexionComponent
   },
   */
-  { path: 'catalog/generate', component: GenerateComponent, /*canActivate: [AuthGaurdService]*/ },
+  { path: 'catalog/generate', component: GenerateComponent, canActivate: [AuthGaurdService] },
   { path: 'pictures/import', component: ImportComponent, canActivate: [AuthGaurdService] },
   { path: 'pictures/display', component: DisplayComponent, canActivate: [AuthGaurdService] },
 

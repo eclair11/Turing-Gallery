@@ -39,6 +39,18 @@ public class InscriptionController {
     @PersistenceContext
     EntityManager entityManager;
 
+    @GetMapping("/conversion")
+    public String encryptePasswordBase() {
+        userRepo.findAllByOrderByUsername();
+        for (User membre : userRepo.findAll()) {
+            if (!membre.getPassword().startsWith("$")) {
+                membre.setPassword(encoder.encode(membre.getPassword()));
+                userRepo.save(membre);
+            }          
+        }
+        return "nb users = " + userRepo.count();
+    }
+
     @PostMapping("/inscription")
     public Boolean addUser(@RequestBody User user) throws Exception {
 

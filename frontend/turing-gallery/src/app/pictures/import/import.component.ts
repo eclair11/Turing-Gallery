@@ -10,7 +10,7 @@ import { PictureService } from '../picture.service';
   styleUrls: ['./import.component.scss']
 })
 export class ImportComponent implements OnInit {
-  @Input() showimport: boolean = true;
+  @Input() showImport: boolean = true;
   /** all pictures that have been added */
   pictures: Picture[] = [];
   /** number of valid picture */

@@ -59,7 +59,6 @@ export class GenerateComponent implements OnInit, AfterViewInit {
       const img = {image: imgDataURL + "", margin: 0, x: 0, y: 0, width: this.selectedModel.pageWidth, height: this.selectedModel.pageHeight};
       docDefinition.content.push(img);
     }
-    console.log(docDefinition);
     this.catalogDocDefinitionPdf = docDefinition;
   }
 

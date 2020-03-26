@@ -8,7 +8,7 @@ export class TextStyle {
   fill: string = "black";
   rotation = 0;
   width = 380;
-  height = 300;
+  height = 50;
 }
 
 class Position {

@@ -53,7 +53,19 @@ export class GenerateComponent implements OnInit, AfterViewInit {
   }
 
   generateDocDefinitionPdf = () => {
-    const docDefinition = {content: [], pageMargins: 0,  pageSize: { width: this.selectedModel.pageWidth, height: this.selectedModel.pageHeight }};
+    const docDefinition = {
+      info: {
+        title: this.customInfo.title,
+        author: this.customInfo.author,
+        creator: 'Esi-digital corp',
+        producer: 'Turring-Gallery',
+        subject: 'Auto generated Catalog by Turring Gallery',
+        keywords: 'catalog image automatic generation',
+      },
+      content: [], 
+      pageMargins: 0,  
+      pageSize: { width: this.selectedModel.pageWidth, height: this.selectedModel.pageHeight }
+    };
     for(let page of this.catalog.pages) {
       const imgDataURL = page.stage.toDataURL();
       const img = {image: imgDataURL + "", margin: 0, x: 0, y: 0, width: this.selectedModel.pageWidth, height: this.selectedModel.pageHeight};
@@ -65,7 +77,7 @@ export class GenerateComponent implements OnInit, AfterViewInit {
   onClickDownload = () => {
     this.generateDocDefinitionPdf();
     if (this.catalogDocDefinitionPdf) {
-      pdfMake.createPdf(this.catalogDocDefinitionPdf).download();
+      pdfMake.createPdf(this.catalogDocDefinitionPdf).download(this.customInfo.title + ".pdf");
     }
   }
 

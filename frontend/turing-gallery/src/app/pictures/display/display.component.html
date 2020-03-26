@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="row text-center text-lg-left">
-        <h1 class="font-weight-light text-lg-left mt-4 col-9">Pictures Gallery</h1>
+        <h1 class="font-weight-light text-lg-left mt-4 col-9">Galerie des images</h1>
         <h5 class="text-lg-left mt-5 col-2" [hidden]="isPageEmpty()">Page : {{ actualpage }}</h5>
         <a (click)="removePictures()" [hidden]="getTotalRemove()"><i class="fa fa-times red-text fa-4x"></i></a>
     </div>
@@ -48,6 +48,12 @@
                 <span class="sr-only">Next</span>
             </a>
         </span>
+    </div>
+
+    <div class="text-center">
+        <a href="/home" type="button" class="btn btn-danger">
+            Retour
+        </a>
     </div>
 
 </div>

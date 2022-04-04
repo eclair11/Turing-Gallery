@@ -1,3 +1,12 @@
+# Turing Gallery
+
+**Membres du groupe :**
+* Fares DABBEK
+* Ibrahima DIALLO
+* Solofo RABONARIJAONA
+* Elias ROMDAN
+* Nicolas TROTTA
+
 # PREREQUIS BACKEND
 
 ## Installation et configuration de MySQL
